@@ -57,6 +57,9 @@
     <Compile Include="Category.cs">
       <DependentUpon>RecipesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="NbaDB.cs" />
+    <Compile Include="NbaModel.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipe.cs">
@@ -78,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RecipesModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Team.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
