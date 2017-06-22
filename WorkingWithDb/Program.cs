@@ -8,8 +8,10 @@ namespace WorkingWithDb
 {
     class Program
     {
+        static List<int> myList = new List<int>();
+
         static void Main(string[] args)
-        {
+        {            
             using (NorthwindEntities context = new NorthwindEntities())
             {
                 List<Product> products = context.Products.Where(p => p.UnitPrice > 80).ToList();
@@ -29,9 +31,7 @@ namespace WorkingWithDb
 
                 List<string> products4 = context.Products.Where(p => p.UnitPrice > 80).OrderByDescending(p => p.ProductName).Select(p => p.ProductName).ToList();
 
-
-
-                var query = from p in context.Products
+                dynamic query = from p in context.Products
                             where p.UnitPrice > 80
                             group p by p.CategoryID into f
 
@@ -84,50 +84,56 @@ namespace WorkingWithDb
 
             };
 
-            Console.WriteLine(SimpleReturn());
-            Console.WriteLine(SimpleReturn());
-            Console.WriteLine(SimpleReturn());
-            Console.WriteLine(SimpleReturn());
 
-            foreach (int item in YieldReturn())
+            //string asasa = ExtractTextFromPDF(@"C:\Users\shake\Downloads\ionic_mifrat.pdf");
+
+            //string rst = ReverseString(asasa);
+
+            //string text = "מרכזי המכירה של יונדאי";
+            //if (rst.Contains(text))
+            //    Console.Write("ok");
+
+            //string text2 = "hybrid";
+            //if (rst.Contains(text2))
+            //    Console.Write("Ok");
+
+            FillValues();
+            foreach (int i in RunningTotal())
             {
-                Console.WriteLine(item);
+                Console.WriteLine(i);
+            }           
+        }
+
+        static void FillValues()
+        {
+            myList.Add(1);
+            myList.Add(2);
+            myList.Add(3);
+            myList.Add(4);
+            myList.Add(5);
+        }
+
+        static IEnumerable<int> Filter()
+        {
+            foreach(int i in myList)
+            {
+                if (i > 3)
+                {
+                    yield return i;
+                }
             }
-
-            string asasa = ExtractTextFromPDF(@"C:\Users\shake\Downloads\ionic_mifrat.pdf");
-
-            string rst = ReverseString(asasa);
-
-            string text = "מרכזי המכירה של יונדאי";
-            if (rst.Contains(text))
-                Console.Write("ok");
-
-            string text2 = "hybrid";
-            if (rst.Contains(text2))
-                Console.Write("Ok");
-
-
-
         }
 
-
-
-
-        static int SimpleReturn()
+        static IEnumerable<int> RunningTotal()
         {
-            return 1;
-            return 2;
-            return 3;
+            int runningtotal = 0;
+            foreach(int i in myList)
+            {
+                runningtotal += i;
+                yield return runningtotal;
+            }
         }
 
-        static IEnumerable<int> YieldReturn()
-        {
-            yield return 55;
-            yield return 44;
-            yield return 33;
-        }
-
-        static Func<int, int, int> sum = (num1, num2) => num1 + num2;
-    }
+        static Func<int, int, int> sum = (num1, num2) => num1 + num2;    
     }
 }

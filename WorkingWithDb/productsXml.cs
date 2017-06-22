@@ -12,13 +12,9 @@ namespace WorkingWithDb
     using System;
     using System.Collections.Generic;
     
-    public partial class Recipe
+    public partial class productsXml
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> CategoryId { get; set; }
-        public Nullable<int> Rating { get; set; }
-    
-        public virtual Category Category { get; set; }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
     }
 }
