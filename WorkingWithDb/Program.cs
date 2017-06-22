@@ -84,18 +84,16 @@ namespace WorkingWithDb
 
             };
 
+            string asasa = PDFExtractor.ExtractTextFromPDF(@"C:\Users\shake\Downloads\ionic_mifrat.pdf");
+            string rst = PDFExtractor.ReverseText(asasa);
 
-            //string asasa = ExtractTextFromPDF(@"C:\Users\shake\Downloads\ionic_mifrat.pdf");
+            string text = "מרכזי המכירה של יונדאי";
+            if (rst.Contains(text))
+                Console.Write("ok");
 
-            //string rst = ReverseString(asasa);
-
-            //string text = "מרכזי המכירה של יונדאי";
-            //if (rst.Contains(text))
-            //    Console.Write("ok");
-
-            //string text2 = "hybrid";
-            //if (rst.Contains(text2))
-            //    Console.Write("Ok");
+            string text2 = "hybrid";
+            if (asasa.Contains(text2))
+                Console.Write("Ok");
 
             FillValues();
             foreach (int i in RunningTotal())
