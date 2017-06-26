@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WorkingWithDb
@@ -11,7 +13,9 @@ namespace WorkingWithDb
         static List<int> myList = new List<int>();
 
         static void Main(string[] args)
-        {            
+        {
+            caller();
+
             using (NorthwindEntities context = new NorthwindEntities())
             {
                 List<Product> products = context.Products.Where(p => p.UnitPrice > 80).ToList();
@@ -32,14 +36,14 @@ namespace WorkingWithDb
                 List<string> products4 = context.Products.Where(p => p.UnitPrice > 80).OrderByDescending(p => p.ProductName).Select(p => p.ProductName).ToList();
 
                 dynamic query = from p in context.Products
-                            where p.UnitPrice > 80
-                            group p by p.CategoryID into f
+                                where p.UnitPrice > 80
+                                group p by p.CategoryID into f
 
-                            select new
-                            {
-                                categoryid = f.Key,
-                                productname = f.Count()
-                            };
+                                select new
+                                {
+                                    categoryid = f.Key,
+                                    productname = f.Count()
+                                };
 
                 foreach (var item in query)
                 {
@@ -99,7 +103,28 @@ namespace WorkingWithDb
             foreach (int i in RunningTotal())
             {
                 Console.WriteLine(i);
-            }           
+            }
+        }
+
+        private static async void  caller()
+        {
+            Task<int> task = new Task<int>(CountCharacters);
+            task.Start();
+
+            Console.WriteLine("Processing file. Please wait....");
+            int count = await task;
+            Console.WriteLine(count);
+            Console.WriteLine("finished!!!");
+        }
+
+        private static int CountCharacters()
+        {
+            int count = 0;
+            for (int i=0; i < 500; i++) 
+            {
+                count++;
+            }
+            return count;
         }
 
         static void FillValues()
