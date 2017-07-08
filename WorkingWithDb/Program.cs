@@ -14,8 +14,6 @@ namespace WorkingWithDb
 
         static void Main(string[] args)
         {
-            caller();
-
             using (NorthwindEntities context = new NorthwindEntities())
             {
                 List<Product> products = context.Products.Where(p => p.UnitPrice > 80).ToList();
@@ -98,65 +96,9 @@ namespace WorkingWithDb
             string text2 = "hybrid";
             if (asasa.Contains(text2))
                 Console.Write("Ok");
-
-            FillValues();
-            foreach (int i in RunningTotal())
-            {
-                Console.WriteLine(i);
-            }
         }
 
-        private static async void  caller()
-        {
-            Task<int> task = new Task<int>(CountCharacters);
-            task.Start();
-
-            Console.WriteLine("Processing file. Please wait....");
-            int count = await task;
-            Console.WriteLine(count);
-            Console.WriteLine("finished!!!");
-        }
-
-        private static int CountCharacters()
-        {
-            int count = 0;
-            for (int i=0; i < 500; i++) 
-            {
-                count++;
-            }
-            return count;
-        }
-
-        static void FillValues()
-        {
-            myList.Add(1);
-            myList.Add(2);
-            myList.Add(3);
-            myList.Add(4);
-            myList.Add(5);
-        }
-
-        static IEnumerable<int> Filter()
-        {
-            foreach(int i in myList)
-            {
-                if (i > 3)
-                {
-                    yield return i;
-                }
-            }
-        }
-
-        static IEnumerable<int> RunningTotal()
-        {
-            int runningtotal = 0;
-            foreach(int i in myList)
-            {
-                runningtotal += i;
-                yield return runningtotal;
-            }
-        }
-
+       
         static Func<int, int, int> sum = (num1, num2) => num1 + num2;    
     }
 }
